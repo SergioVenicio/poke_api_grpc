@@ -1,0 +1,104 @@
+syntax = "proto3";
+package poke_api;
+
+option go_package = "github/sergiovenicio/poke_api/proto";
+
+service PokeAPI {
+  rpc ListPokemons(ListPokemonRequest) returns (ListPokemonsResponse) {}
+  rpc GetPokemon(GetPokemonRequest) returns (GetPokemonResponse) {}
+}
+
+message ListPokemonRequest {
+  int64 limit = 1;
+  int64 offset = 2;
+}
+
+message ListPokemonData {
+  string name = 1;
+  string url = 2;
+}
+
+message ListPokemonsResponse {
+  repeated ListPokemonData results = 1;
+  int64 count = 2;
+  string next = 3;
+  string previous = 4;
+}
+
+message GetPokemonRequest {
+  string name = 1;
+}
+
+message Ability {
+  string name = 1;
+  string url = 2;
+}
+message AbilityResponse {
+  Ability ability = 1;
+  bool is_hidden = 2;
+  int64 slot = 3;
+}
+
+message Form {
+  string name = 1;
+  string url = 2;
+}
+
+message Version {
+  string name = 1;
+  string url = 2;
+}
+
+message GameIndex {
+  int64 game_index = 1;
+  Version version = 2;
+}
+
+message Item {
+  string name = 1;
+  string url = 2;
+}
+
+message VersionDetail {
+  int64 rarity = 1;
+  Version version = 2;
+}
+message HeldItem {
+  Item item = 1;
+  repeated VersionDetail version_detail = 2;
+}
+
+message MoveDetail {
+  string name = 1;
+  string url = 2;
+}
+
+message MoveLearnMethod {
+  string name = 1;
+  string url = 2;
+}
+
+message GroupDetail {
+  string name = 1;
+  string url = 2;
+}
+message VersionGroupDetail {
+  int64 level_learned_at = 1;
+  GroupDetail version_group = 2;
+}
+message Move {
+  MoveDetail move = 3;
+  repeated VersionGroupDetail version_group_details = 4;
+}
+
+message GetPokemonResponse {
+  int64 id = 1;
+  string name = 2;
+  int64 base_experience = 3;
+  int64 height = 4;
+  repeated AbilityResponse abilities = 5;
+  repeated Form forms = 6;
+  repeated GameIndex game_indices = 7;
+  repeated HeldItem held_items = 8;
+  repeated Move moves = 9;
+}
