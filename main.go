@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net"
 	"os"
 
@@ -18,8 +17,8 @@ func main() {
 
 	listUseCase := usecases.NewListUseCase()
 	getUseCase := usecases.NewGetPokemonUseCase()
+
 	lis, _ := net.Listen("tcp", os.Getenv("GRPC_ADDR"))
-	fmt.Println(lis.Addr())
 
 	var opts []grpc.ServerOption
 	server := grpc.NewServer(opts...)
